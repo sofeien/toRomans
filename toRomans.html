@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>测试网页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center" style="margin:20px auto">转换数字到罗马数字</h1>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <div class="input-group">
+                <input id='num' type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button type="button" id="convert" class="btn btn-default">Convert</button>
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div id='rom' class='text-center' style="font-size:20px;margin-top:20px;color:red"></div>
+    <script>
+        $(function() {
+
+            function convertToRomans(num) {
+                Romans = {
+                    1: 'I',
+                    5: 'V',
+                    10: 'X',
+                    50: 'L',
+                    100: 'C',
+                    500: 'D',
+                    1000: 'M'
+                };
+                return (function() {
+                        str = '';
+                        if(num>3999){
+                            alert('请输入3999以内的数字');
+                            return;
+                        }
+                        if (num > 999 && num < 4000) {
+                            var qianwei = Math.floor(num / 1000);
+
+                            for (var i = 0; i < qianwei; i++) {
+
+                                str += Romans[1000];
+                            }
+                            num = num % 1000;
+
+                        }
+
+                        if (num > 99) {
+                            var baiwei = Math.floor(num / 100) * 100;
+
+                            switch (baiwei) {
+                                case 100:
+
+                                case 200:
+                                case 300:
+
+                                    for (i = 0; i < baiwei; i += 100) {
+                                        str += Romans[100];
+                                    }
+                                    break;
+                                case 400:
+                                    str += Romans[100] + Romans[500];
+                                    break;
+                                case 500:
+                                    str += Romans[500];
+                                    break;
+                                case 600:
+                                case 700:
+                                case 800:
+                                    str += Romans[500];
+                                    for (i = 500; i < baiwei; i += 100) {
+                                        str += Romans[100];
+                                    }
+                                    break;
+                                case 900:
+                                    str += Romans[100] + Romans[1000];
+                                    break;
+                            }
+                            num = num % 100;
+                        }
+
+                        if (num > 9) {
+                            var shiwei = Math.floor(num / 10) * 10;
+                            switch (shiwei) {
+                                case 10:
+
+                                case 20:
+                                case 30:
+
+                                    for (i = 0; i < shiwei; i += 10) {
+                                        str += Romans[10];
+                                    }
+                                    break;
+                                case 40:
+                                    str += Romans[10] + Romans[50];
+                                    break;
+                                case 50:
+                                    str += Romans[50];
+                                    break;
+                                case 60:
+                                case 70:
+                                case 80:
+                                    str += Romans[50];
+                                    for (i = 50; i < shiwei; i += 10) {
+                                        str += Romans[10];
+                                    }
+                                    break;
+                                case 90:
+                                    str += Romans[10] + Romans[100];
+                                    break;
+                            }
+                            num = num % 10;
+                        }
+
+                        switch (num) {
+                            case 1:
+
+                            case 2:
+                            case 3:
+
+                                for (i = 0; i < num; i++) {
+                                    str += Romans[1];
+                                }
+                                break;
+                            case 4:
+                                str += Romans[1] + Romans[5];
+                                break;
+                            case 5:
+                                str += Romans[5];
+                                break;
+                            case 6:
+                            case 7:
+                            case 8:
+                                str += Romans[5];
+                                for (i = 5; i < num; i++) {
+                                    str += Romans[1];
+                                }
+                                break;
+                            case 9:
+                                str += Romans[1] + Romans[10];
+                                break;
+                        }
+                        return str;
+                    }
+
+                )();
+            }
+            
+            $('#convert').click(function(){
+                var x = parseInt($('#num').val());
+                
+                if(x) {$('#rom').text(convertToRomans(x));}
+            });
+            
+
+        });
+    </script>
+</body>
+    
+</html>
